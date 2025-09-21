@@ -210,10 +210,7 @@
         }
       ],
       "EventLinks": [],
-      "Children": [],
-      "worldCoreVersion": "1.25.0.0",
-      "worldStudioVersion": "0.1.0.0",
-      "useService": 0
+      "Children": []
     }
   }
 }
