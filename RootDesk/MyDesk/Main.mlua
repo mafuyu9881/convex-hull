@@ -1,5 +1,7 @@
 @Component
 script Main extends Component
+	property number vertexSize = 0.1
+
 	property table<Vector2> vertices = {}
 
 	@EventSender("Service", "InputService")
@@ -9,12 +11,13 @@ script Main extends Component
 		end
 
 		local vertices = self.vertices
+		local vertexSize = self.vertexSize
 
 		local newVertex = _UILogic:ScreenToWorldPosition(_InputService:GetCursorPosition())
 
 		local duplicated = false
 		for _, vertex in ipairs(vertices) do
-			if (vertex - newVertex):Magnitude() < 0.1 then
+			if (vertex - newVertex):Magnitude() < (vertexSize * 0.5) then
 				duplicated = true
 				break
 			end
@@ -29,7 +32,7 @@ script Main extends Component
 		_Debug:DrawOrientedBox(
 			self.Entity.CurrentMap,
 			newVertex,
-			Vector2(0.1, 0.1),
+			Vector2(vertexSize, vertexSize),
 			0,
 			Color(0, 1, 0),
 			true
