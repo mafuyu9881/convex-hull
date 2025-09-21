@@ -4,20 +4,27 @@ script Main extends Component
 
 	property table<Vector2> vertices = {}
 
+	method number ComputeParallellogramArea(Vector2 p, Vector2 v0, Vector2 v1)
+		local pToV0 = v0 - p
+		local pToV1 = v1 - p
+		return pToV1.x * pToV0.y - pToV0.x * pToV1.y
+	end
+
 	@EventSender("Service", "InputService")
 	handler HandleKeyDownEvent(KeyDownEvent event)
 		if event.key ~= KeyboardKey.Mouse0 then
 			return
 		end
 
+		local currentMap = self.Entity.CurrentMap
 		local vertices = self.vertices
 		local vertexSize = self.vertexSize
 
 		local newVertex = _UILogic:ScreenToWorldPosition(_InputService:GetCursorPosition())
 
 		local duplicated = false
-		for _, vertex in ipairs(vertices) do
-			if (vertex - newVertex):Magnitude() < (vertexSize * 0.5) then
+		for i = 1, #vertices do
+			if (vertices[i] - newVertex):Magnitude() < (vertexSize * 0.5) then
 				duplicated = true
 				break
 			end
@@ -30,7 +37,7 @@ script Main extends Component
 		table.insert(vertices, newVertex)
 
 		_Debug:DrawOrientedBox(
-			self.Entity.CurrentMap,
+			currentMap,
 			newVertex,
 			Vector2(vertexSize, vertexSize),
 			0,
@@ -38,6 +45,61 @@ script Main extends Component
 			true
 		)
 
-		-- todo: 볼록 다각형 업데이트
+		if #vertices < 2 then
+			return
+		end
+
+		local nominateds = {}
+
+		if #vertices < 3 then
+			table.insert(nominateds, vertices[1])
+			table.insert(nominateds, vertices[2])
+		else
+			table.sort(vertices, function(a, b)
+				return a.x < b.x
+			end)
+			
+			local base = vertices[1]
+
+			table.sort(vertices, function(a, b)
+				-- 점이 직선 상에 위치할 경우(평행사변형의 넓이가 0일 경우)
+				-- 구현에 따라 거리가 가까운 점을 먼저 택하는 처리를 적용할 때도 있으나,
+				-- 해당 처리가 없더라도 볼록 다각형의 생성에는 문제될 것이 없으므로 여기에선 생략함
+				return self:ComputeParallellogramArea(base, a, b) < 0
+			end)
+
+			table.insert(nominateds, vertices[1])
+			table.insert(nominateds, vertices[2])
+			for i = 3, #vertices do
+				local count = #vertices
+				local vertex = vertices[i]
+				if count < 2 or self:ComputeParallellogramArea(vertices[count - 1], vertices[count], vertex) < 0 then
+					table.insert(nominateds, vertex)
+				end
+			end
+		end
+
+		--for i = 1, #vertices do
+		--	print("vertex[" .. i .. "]: " .. tostring(vertices[i]))
+		--end
+
+		for i = 1, #vertices do
+			local startIndex = i
+			local endIndex
+			if i < #vertices then
+				endIndex = i + 1
+			else
+				endIndex = 1
+			end
+
+			_Debug:DrawLine(
+				currentMap,
+				vertices[startIndex],
+				vertices[endIndex],
+				0.025,
+				Color(0, 1, 0),
+				true
+			)
+		end
 	end
 end
