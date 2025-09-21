@@ -89,6 +89,7 @@ script Main extends Component
 				lineHandles[i]
 			)
 		end
+		table.clear(lineHandles)
 
 		for i = 1, #vertices do
 			local startIndex = i
