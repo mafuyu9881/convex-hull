@@ -4,6 +4,9 @@ script Main extends Component
 
 	@HideFromInspector
 	property table<Vector2> vertices = {}
+	@HideFromInspector
+	property table<integer> lineHandles = {}
+
 
 	method number ComputeParallellogramArea(Vector2 p, Vector2 v0, Vector2 v1)
 		local pToV0 = v0 - p
@@ -19,6 +22,7 @@ script Main extends Component
 
 		local currentMap = self.Entity.CurrentMap
 		local vertices = self.vertices
+		local lineHandles = self.lineHandles
 		local vertexSize = self.vertexSize
 
 		local newVertex = _UILogic:ScreenToWorldPosition(_InputService:GetCursorPosition())
@@ -80,6 +84,12 @@ script Main extends Component
 			end
 		end
 
+		for i = 1, #lineHandles do
+			_EffectService:RemoveEffect(
+				lineHandles[i]
+			)
+		end
+
 		for i = 1, #vertices do
 			local startIndex = i
 			local endIndex
@@ -89,13 +99,16 @@ script Main extends Component
 				endIndex = 1
 			end
 
-			_Debug:DrawLine(
-				currentMap,
-				vertices[startIndex],
-				vertices[endIndex],
-				0.025,
-				Color(0, 1, 0),
-				true
+			table.insert(
+				lineHandles,
+				_Debug:DrawLine(
+					currentMap,
+					vertices[startIndex],
+					vertices[endIndex],
+					0.025,
+					Color(0, 1, 0),
+					true
+				)
 			)
 		end
 	end
