@@ -93,10 +93,10 @@ script Main extends Component
 		end
 		table.clear(lineHandles)
 
-		for i = 1, #vertices do
+		for i = 1, #nominateds do
 			local startIndex = i
 			local endIndex
-			if i < #vertices then
+			if i < #nominateds then
 				endIndex = i + 1
 			else
 				endIndex = 1
@@ -106,8 +106,8 @@ script Main extends Component
 				lineHandles,
 				_Debug:DrawLine(
 					currentMap,
-					vertices[startIndex],
-					vertices[endIndex],
+					nominateds[startIndex],
+					nominateds[endIndex],
 					0.025,
 					Color(0, 1, 0),
 					true
