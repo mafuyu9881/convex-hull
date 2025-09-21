@@ -2,6 +2,7 @@
 script Main extends Component
 	property number vertexSize = 0.1
 
+	@HideFromInspector
 	property table<Vector2> vertices = {}
 
 	method number ComputeParallellogramArea(Vector2 p, Vector2 v0, Vector2 v1)
