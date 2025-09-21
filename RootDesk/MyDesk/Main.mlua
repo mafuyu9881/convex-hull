@@ -80,12 +80,6 @@ script Main extends Component
 		return nominateds
 	end
 
-	method void DrawVertex(Entity currentMap, table vertices, table vertexHandles, table lineHandles, number vertexSize)
-	end
-
-	method void DrawEdge(Entity currentMap, table edgeVertices, table vertexHandles, table lineHandles, number vertexSize)
-	end
-
 	@EventSender("Service", "InputService")
 	handler HandleKeyDownEvent(KeyDownEvent event)
 		local currentMap = self.Entity.CurrentMap
