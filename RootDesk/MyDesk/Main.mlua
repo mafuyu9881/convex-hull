@@ -76,10 +76,10 @@ script Main extends Component
 			table.insert(nominateds, vertices[1])
 			table.insert(nominateds, vertices[2])
 			for i = 3, #vertices do
-				local count = #vertices
-				local vertex = vertices[i]
-				if count < 2 or self:ComputeParallellogramArea(vertices[count - 1], vertices[count], vertex) < 0 then
-					table.insert(nominateds, vertex)
+				local candidate = vertices[i]
+				local count = #nominateds
+				if count < 2 or self:ComputeParallellogramArea(nominateds[count - 1], nominateds[count], candidate) < 0 then
+					table.insert(nominateds, candidate)
 				else
 					table.remove(nominateds)
 				end
