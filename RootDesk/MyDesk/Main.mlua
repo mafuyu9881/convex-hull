@@ -1,0 +1,40 @@
+@Component
+script Main extends Component
+	property table<Vector2> vertices = {}
+
+	@EventSender("Service", "InputService")
+	handler HandleKeyDownEvent(KeyDownEvent event)
+		if event.key ~= KeyboardKey.Mouse0 then
+			return
+		end
+
+		local vertices = self.vertices
+
+		local newVertex = _UILogic:ScreenToWorldPosition(_InputService:GetCursorPosition())
+
+		local duplicated = false
+		for _, vertex in ipairs(vertices) do
+			if (vertex - newVertex):Magnitude() < 0.1 then
+				duplicated = true
+				break
+			end
+		end
+
+		if duplicated then
+			return
+		end
+
+		table.insert(vertices, newVertex)
+
+		_Debug:DrawOrientedBox(
+			self.Entity.CurrentMap,
+			newVertex,
+			Vector2(0.1, 0.1),
+			0,
+			Color(0, 1, 0),
+			true
+		)
+
+		-- todo: 볼록 다각형 업데이트
+	end
+end

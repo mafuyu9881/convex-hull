@@ -1,7 +1,7 @@
 {
   "Id": "",
   "GameId": "",
-  "EntryKey": "map://map01",
+  "EntryKey": "map://main",
   "ContentType": "x-mod/map",
   "Content": "",
   "Usage": 0,
@@ -15,12 +15,12 @@
     "Entities": [
       {
         "id": "c76bae7c-6ceb-4ea5-b422-4730fd0e273e",
-        "path": "/maps/map01",
-        "componentNames": "MOD.Core.MapComponent,MOD.Core.FootholdComponent",
+        "path": "/maps/main",
+        "componentNames": "MOD.Core.MapComponent,MOD.Core.FootholdComponent,script.Main",
         "jsonString": {
-          "name": "map01",
-          "path": "/maps/map01",
-          "nameEditable": false,
+          "name": "main",
+          "path": "/maps/main",
+          "nameEditable": true,
           "enable": true,
           "visible": true,
           "localize": false,
@@ -32,12 +32,16 @@
             {
               "@type": "MOD.Core.MapComponent",
               "IsInstanceMap": false,
-              "TileMapMode": 0,
+              "TileMapMode": 1,
               "Enable": true
             },
             {
               "@type": "MOD.Core.FootholdComponent",
               "FootholdsByLayer": {},
+              "Enable": true
+            },
+            {
+              "@type": "script.Main",
               "Enable": true
             }
           ],
@@ -46,11 +50,11 @@
       },
       {
         "id": "8177a872-81b4-4ddb-bc70-079bbe0dd145",
-        "path": "/maps/map01/Background",
+        "path": "/maps/main/Background",
         "componentNames": "MOD.Core.BackgroundComponent",
         "jsonString": {
           "name": "Background",
-          "path": "/maps/map01/Background",
+          "path": "/maps/main/Background",
           "nameEditable": false,
           "enable": true,
           "visible": true,
@@ -78,11 +82,11 @@
       },
       {
         "id": "0e3c61a3-eb73-4335-9cb7-bef6f4673499",
-        "path": "/maps/map01/MapleMapLayer",
+        "path": "/maps/main/MapleMapLayer",
         "componentNames": "MOD.Core.MapLayerComponent",
         "jsonString": {
           "name": "MapleMapLayer",
-          "path": "/maps/map01/MapleMapLayer",
+          "path": "/maps/main/MapleMapLayer",
           "nameEditable": false,
           "enable": true,
           "visible": true,
@@ -111,31 +115,31 @@
         }
       },
       {
-        "id": "b471c356-bc05-4f7e-8d94-84daadeef244",
-        "path": "/maps/map01/TileMap",
-        "componentNames": "MOD.Core.TransformComponent,MOD.Core.TileMapComponent",
+        "id": "96f9e150-6661-48be-817d-34360263d743",
+        "path": "/maps/main/RectTileMap",
+        "componentNames": "MOD.Core.TransformComponent,MOD.Core.RectTileMapComponent",
         "jsonString": {
-          "name": "TileMap",
-          "path": "/maps/map01/TileMap",
+          "name": "RectTileMap",
+          "path": "/maps/main/RectTileMap",
           "nameEditable": false,
           "enable": true,
           "visible": true,
           "localize": false,
           "displayOrder": 2,
           "pathConstraints": "///",
-          "revision": 2,
+          "revision": 1,
           "origin": {
             "type": "Model",
-            "entry_id": "tilemap",
+            "entry_id": "recttilemap",
             "sub_entity_id": null
           },
-          "modelId": "tilemap",
+          "modelId": "recttilemap",
           "@components": [
             {
               "@type": "MOD.Core.TransformComponent",
               "Position": {
-                "x": -0.225,
-                "y": -0.15,
+                "x": 0.0,
+                "y": 0.0,
                 "z": 1000.0
               },
               "QuaternionRotation": {
@@ -152,15 +156,11 @@
               "Enable": true
             },
             {
-              "@type": "MOD.Core.TileMapComponent",
-              "IsOddGridPosition": false,
+              "@type": "MOD.Core.RectTileMapComponent",
               "SortingLayer": "MapLayer0",
-              "TileMapVersion": 1,
-              "TileSetRUID": {
-                "DataId": ""
-              },
-              "Tiles": [],
-              "Enable": true
+              "TileSetRUID": null,
+              "Enable": true,
+              "tileMap": []
             }
           ],
           "@version": 1
