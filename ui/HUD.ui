@@ -169,31 +169,31 @@
         }
       },
       {
-        "id": "c7effa14-fcc3-4346-9717-d5107936c866",
-        "path": "/ui/HUD/InputFrame/ScrollLayout",
-        "componentNames": "MOD.Core.UITransformComponent,MOD.Core.SpriteGUIRendererComponent,MOD.Core.ScrollLayoutGroupComponent",
+        "id": "191da41d-11dd-4fb1-863b-f800e2b76f38",
+        "path": "/ui/HUD/InputFrame/LClickText",
+        "componentNames": "MOD.Core.UITransformComponent,MOD.Core.SpriteGUIRendererComponent,MOD.Core.TextComponent",
         "jsonString": {
-          "name": "ScrollLayout",
-          "path": "/ui/HUD/InputFrame/ScrollLayout",
+          "name": "LClickText",
+          "path": "/ui/HUD/InputFrame/LClickText",
           "nameEditable": true,
           "enable": true,
           "visible": true,
           "localize": false,
           "displayOrder": 0,
           "pathConstraints": "////",
-          "revision": 0,
+          "revision": 1,
           "origin": {
             "type": "Model",
-            "entry_id": "UISprite",
+            "entry_id": "uitext",
             "sub_entity_id": null
           },
-          "modelId": "uisprite",
+          "modelId": "uitext",
           "@components": [
             {
               "@type": "MOD.Core.UITransformComponent",
-              "AlignmentOption": 7,
+              "AlignmentOption": 11,
               "AnchorsMax": {
-                "x": 0.0,
+                "x": 1.0,
                 "y": 0.0
               },
               "AnchorsMin": {
@@ -202,20 +202,20 @@
               },
               "MobileOnly": false,
               "OffsetMax": {
-                "x": 200.0,
-                "y": 78.0
+                "x": 0.0,
+                "y": 68.0
               },
               "OffsetMin": {
-                "x": 0.0,
-                "y": 0.0
+                "x": 10.0,
+                "y": 44.0
               },
               "Pivot": {
                 "x": 0.0,
                 "y": 0.0
               },
               "RectSize": {
-                "x": 200.0,
-                "y": 78.0
+                "x": 1910.0,
+                "y": 24.0
               },
               "UIMode": 1,
               "UIScale": {
@@ -225,12 +225,12 @@
               },
               "UIVersion": 2,
               "anchoredPosition": {
-                "x": 0.0,
-                "y": 0.0
+                "x": 10.0,
+                "y": 44.0
               },
               "Position": {
-                "x": -960.0,
-                "y": -540.0,
+                "x": -950.0,
+                "y": -496.0,
                 "z": 0.0
               },
               "QuaternionRotation": {
@@ -248,197 +248,12 @@
             },
             {
               "@type": "MOD.Core.SpriteGUIRendererComponent",
-              "AnimClipPlayType": 0,
-              "EndFrameIndex": 2147483647,
-              "ImageRUID": {
-                "DataId": ""
-              },
-              "LocalPosition": {
-                "x": 0.0,
-                "y": 0.0
-              },
-              "LocalScale": {
-                "x": 1.0,
-                "y": 1.0
-              },
-              "OverrideSorting": false,
-              "PlayRate": 1.0,
-              "StartFrameIndex": 0,
-              "Color": {
-                "r": 0.223990083,
-                "g": 0.223990083,
-                "b": 0.223990083,
-                "a": 0.0
-              },
-              "DropShadow": false,
-              "DropShadowAngle": 30.0,
-              "DropShadowColor": {
-                "r": 0.0,
-                "g": 0.0,
-                "b": 0.0,
-                "a": 0.72
-              },
-              "DropShadowDistance": 32.0,
-              "FillAmount": 1.0,
-              "FillCenter": true,
-              "FillClockWise": true,
-              "FillMethod": 0,
-              "FillOrigin": 0,
-              "FlipX": false,
-              "FlipY": false,
-              "FrameColumn": 1,
-              "FrameRate": 0,
-              "FrameRow": 1,
-              "Outline": false,
-              "OutlineColor": {
-                "r": 0.0,
-                "g": 0.0,
-                "b": 0.0,
-                "a": 1.0
-              },
-              "OutlineWidth": 3.0,
-              "RaycastTarget": true,
-              "Type": 1,
-              "Enable": false
-            },
-            {
-              "@type": "MOD.Core.ScrollLayoutGroupComponent",
-              "CellSize": {
-                "x": 100.0,
-                "y": 100.0
-              },
-              "Constraint": 0,
-              "ConstraintCount": 1,
-              "GridSpacing": {
-                "x": 10.0,
-                "y": 10.0
-              },
-              "HorizontalScrollBarDirection": 0,
-              "OverrideSorting": false,
-              "Padding": {
-                "left": 0,
-                "right": 0,
-                "top": 10,
-                "bottom": 10
-              },
-              "ReverseArrangement": false,
-              "ScrollBarBackgroundColor": {
-                "r": 1.0,
-                "g": 1.0,
-                "b": 1.0,
-                "a": 0.4
-              },
-              "ScrollBarHandleColor": {
-                "r": 0.5,
-                "g": 0.5,
-                "b": 0.5,
-                "a": 1.0
-              },
-              "ScrollBarThickness": 20.0,
-              "ScrollBarVisible": 1,
-              "Spacing": 10.0,
-              "StartAxis": 0,
-              "StartCorner": 0,
-              "Type": 1,
-              "UseScroll": false,
-              "VerticalScrollBarDirection": 2,
-              "Enable": true
-            }
-          ],
-          "@version": 1
-        }
-      },
-      {
-        "id": "191da41d-11dd-4fb1-863b-f800e2b76f38",
-        "path": "/ui/HUD/InputFrame/ScrollLayout/LClickText",
-        "componentNames": "MOD.Core.UITransformComponent,MOD.Core.SpriteGUIRendererComponent,MOD.Core.TextComponent",
-        "jsonString": {
-          "name": "LClickText",
-          "path": "/ui/HUD/InputFrame/ScrollLayout/LClickText",
-          "nameEditable": true,
-          "enable": true,
-          "visible": true,
-          "localize": false,
-          "displayOrder": 0,
-          "pathConstraints": "/////",
-          "revision": 1,
-          "origin": {
-            "type": "Model",
-            "entry_id": "uitext",
-            "sub_entity_id": null
-          },
-          "modelId": "uitext",
-          "@components": [
-            {
-              "@type": "MOD.Core.UITransformComponent",
-              "AlignmentOption": 4,
-              "AnchorsMax": {
-                "x": 0.0,
-                "y": 1.0
-              },
-              "AnchorsMin": {
-                "x": 0.0,
-                "y": 1.0
-              },
-              "MobileOnly": false,
-              "OffsetMax": {
-                "x": 200.0,
-                "y": -10.0
-              },
-              "OffsetMin": {
-                "x": 0.0,
-                "y": -34.0
-              },
-              "Pivot": {
-                "x": 0.0,
-                "y": 0.0
-              },
-              "RectSize": {
-                "x": 200.0,
-                "y": 24.0
-              },
-              "UIMode": 1,
-              "UIScale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-              },
-              "UIVersion": 2,
-              "anchoredPosition": {
-                "x": 0.0,
-                "y": -34.0
-              },
-              "Rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-              },
-              "Position": {
-                "x": 0.0,
-                "y": -34.0,
-                "z": 0.0
-              },
-              "QuaternionRotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0,
-                "w": -1.0
-              },
-              "Scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
-              },
-              "ZRotation": 0.0,
-              "Enable": true
-            },
-            {
-              "@type": "MOD.Core.SpriteGUIRendererComponent",
               "OverrideSorting": false,
               "Enable": true
             },
             {
               "@type": "MOD.Core.TextComponent",
+              "Alignment": 3,
               "Bold": true,
               "FontColor": {
                 "r": 1.0,
@@ -447,6 +262,7 @@
                 "a": 1.0
               },
               "FontSize": 24,
+              "IsLocalizationKey": true,
               "MaxSize": 40,
               "MinSize": 10,
               "OutlineDistance": {
@@ -454,7 +270,7 @@
                 "y": -1.0
               },
               "OverrideSorting": false,
-              "Text": "좌클릭: 정점 추가",
+              "Text": "lc",
               "Enable": true
             }
           ],
@@ -463,17 +279,17 @@
       },
       {
         "id": "49cded83-d4a4-48e4-997d-a30b5381ab88",
-        "path": "/ui/HUD/InputFrame/ScrollLayout/RClickText",
+        "path": "/ui/HUD/InputFrame/RClickText",
         "componentNames": "MOD.Core.UITransformComponent,MOD.Core.SpriteGUIRendererComponent,MOD.Core.TextComponent",
         "jsonString": {
           "name": "RClickText",
-          "path": "/ui/HUD/InputFrame/ScrollLayout/RClickText",
+          "path": "/ui/HUD/InputFrame/RClickText",
           "nameEditable": true,
           "enable": true,
           "visible": true,
           "localize": false,
           "displayOrder": 1,
-          "pathConstraints": "/////",
+          "pathConstraints": "////",
           "revision": 1,
           "origin": {
             "type": "Model",
@@ -484,30 +300,30 @@
           "@components": [
             {
               "@type": "MOD.Core.UITransformComponent",
-              "AlignmentOption": 4,
+              "AlignmentOption": 11,
               "AnchorsMax": {
-                "x": 0.0,
-                "y": 1.0
+                "x": 1.0,
+                "y": 0.0
               },
               "AnchorsMin": {
                 "x": 0.0,
-                "y": 1.0
+                "y": 0.0
               },
               "MobileOnly": false,
               "OffsetMax": {
-                "x": 200.0,
-                "y": -44.0
+                "x": 0.0,
+                "y": 34.0
               },
               "OffsetMin": {
-                "x": 0.0,
-                "y": -68.0
+                "x": 10.0,
+                "y": 10.0
               },
               "Pivot": {
                 "x": 0.0,
                 "y": 0.0
               },
               "RectSize": {
-                "x": 200.0,
+                "x": 1910.0,
                 "y": 24.0
               },
               "UIMode": 1,
@@ -518,31 +334,25 @@
               },
               "UIVersion": 2,
               "anchoredPosition": {
-                "x": 0.0,
-                "y": -68.0
-              },
-              "Rotation": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
+                "x": 10.0,
+                "y": 10.0
               },
               "Position": {
-                "x": 0.0,
-                "y": -68.0,
+                "x": -950.0,
+                "y": -530.0,
                 "z": 0.0
               },
               "QuaternionRotation": {
                 "x": 0.0,
                 "y": 0.0,
                 "z": 0.0,
-                "w": -1.0
+                "w": 1.0
               },
               "Scale": {
                 "x": 1.0,
                 "y": 1.0,
                 "z": 1.0
               },
-              "ZRotation": 0.0,
               "Enable": true
             },
             {
@@ -553,6 +363,7 @@
             },
             {
               "@type": "MOD.Core.TextComponent",
+              "Alignment": 3,
               "Bold": true,
               "FontColor": {
                 "r": 1.0,
@@ -561,6 +372,7 @@
                 "a": 1.0
               },
               "FontSize": 24,
+              "IsLocalizationKey": true,
               "MaxSize": 40,
               "MinSize": 10,
               "OutlineDistance": {
@@ -568,7 +380,7 @@
                 "y": -1.0
               },
               "OverrideSorting": false,
-              "Text": "우클릭: 정점 제거",
+              "Text": "rc",
               "Enable": true
             }
           ],

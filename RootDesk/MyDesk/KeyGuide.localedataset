@@ -1,0 +1,22 @@
+{
+  "Id": "",
+  "GameId": "",
+  "EntryKey": "localedataset://861a1abd-7253-40ed-bbb2-aa84c32b47c6",
+  "ContentType": "x-mod/localedataset",
+  "Content": "",
+  "Usage": 0,
+  "UsePublish": 1,
+  "UseService": 0,
+  "CoreVersion": "1.25.0.0",
+  "StudioVersion": "0.1.0.0",
+  "DynamicLoading": 0,
+  "ContentProto": {
+    "Use": "Json",
+    "Json": {
+      "name": "KeyGuide",
+      "id": "861a1abd-7253-40ed-bbb2-aa84c32b47c6",
+      "serveronly": false,
+      "iswebsync": false
+    }
+  }
+}
