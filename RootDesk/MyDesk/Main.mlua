@@ -5,6 +5,8 @@ script Main extends Component
 	@HideFromInspector
 	property table<Vector2> vertices = {}
 	@HideFromInspector
+	property table<integer> vertexHandles = {}
+	@HideFromInspector
 	property table<integer> lineHandles = {}
 
 	method number ComputeParallellogramArea(Vector2 p, Vector2 v0, Vector2 v1)
@@ -13,112 +15,164 @@ script Main extends Component
 		return pToV1.x * pToV0.y - pToV0.x * pToV1.y
 	end
 
-	@EventSender("Service", "InputService")
-	handler HandleKeyDownEvent(KeyDownEvent event)
-		if event.key ~= KeyboardKey.Mouse0 then
-			return
+	method boolean AddVertex(Vector2 added, Entity currentMap, table vertices, table vertexHandles, table lineHandles, number vertexSize)
+		for i = 1, #vertices do
+			if (vertices[i] - added):Magnitude() < (vertexSize * 0.5) then
+				return false
+			end
 		end
 
+		table.insert(vertices, added)
+
+		return true
+	end
+
+	method boolean RemoveVertex(Vector2 removed, Entity currentMap, table vertices, table vertexHandles, table lineHandles, number vertexSize)
+		for i = 1, #vertices do
+			if (vertices[i] - removed):Magnitude() < (vertexSize * 0.5) then
+				table.remove(vertices, i)
+				return true
+			end
+		end
+		return false
+	end
+
+	method table ComputeEdgeVertices(table vertices)
+		local nominateds = {}
+		if #vertices > 1 then
+			if #vertices < 3 then
+				table.insert(nominateds, vertices[1])
+				table.insert(nominateds, vertices[2])
+			else
+				table.sort(vertices, function(a, b)
+					return a.x < b.x
+				end)
+				
+				local base = vertices[1]
+
+				local candidates = {}
+				for i = 2, #vertices do
+					table.insert(candidates, vertices[i])
+				end
+
+				table.sort(candidates, function(a, b)
+					-- 점이 직선 상에 위치할 경우(평행사변형의 넓이가 0일 경우)
+					-- 구현에 따라 거리가 가까운 점을 먼저 택하는 처리를 적용할 때도 있으나,
+					-- 해당 처리가 없더라도 볼록 다각형의 생성에는 문제될 것이 없으므로 여기에선 생략함
+					return self:ComputeParallellogramArea(base, a, b) < 0
+				end)
+
+				table.insert(nominateds, base)
+				table.insert(nominateds, candidates[1])
+				for i = 2, #candidates do
+					local candidate = candidates[i]
+					while #nominateds > 1 do
+						if self:ComputeParallellogramArea(nominateds[#nominateds - 1], nominateds[#nominateds], candidate) < 0 then
+							break
+						end
+
+						table.remove(nominateds)
+					end
+					table.insert(nominateds, candidate)
+				end
+			end
+		end
+		return nominateds
+	end
+
+	method void DrawVertex(Entity currentMap, table vertices, table vertexHandles, table lineHandles, number vertexSize)
+	end
+
+	method void DrawEdge(Entity currentMap, table edgeVertices, table vertexHandles, table lineHandles, number vertexSize)
+	end
+
+	@EventSender("Service", "InputService")
+	handler HandleKeyDownEvent(KeyDownEvent event)
 		local currentMap = self.Entity.CurrentMap
 		local vertices = self.vertices
+		local vertexHandles = self.vertexHandles
 		local lineHandles = self.lineHandles
 		local vertexSize = self.vertexSize
 
-		local newVertex = _UILogic:ScreenToWorldPosition(_InputService:GetCursorPosition())
+		local eventKey = event.key
+		local cursorVertex = _UILogic:ScreenToWorldPosition(_InputService:GetCursorPosition())
 
-		local duplicated = false
-		for i = 1, #vertices do
-			if (vertices[i] - newVertex):Magnitude() < (vertexSize * 0.5) then
-				duplicated = true
-				break
-			end
-		end
+		local draw = false
 
-		if duplicated then
-			return
-		end
-
-		table.insert(vertices, newVertex)
-
-		_Debug:DrawOrientedBox(
-			currentMap,
-			newVertex,
-			Vector2(vertexSize, vertexSize),
-			0,
-			Color(0, 1, 0),
-			true
-		)
-
-		if #vertices < 2 then
-			return
-		end
-
-		local nominateds = {}
-
-		if #vertices < 3 then
-			table.insert(nominateds, vertices[1])
-			table.insert(nominateds, vertices[2])
-		else
-			table.sort(vertices, function(a, b)
-				return a.x < b.x
-			end)
-			
-			local base = vertices[1]
-
-			local candidates = {}
-			for i = 2, #vertices do
-				table.insert(candidates, vertices[i])
-			end
-
-			table.sort(candidates, function(a, b)
-				-- 점이 직선 상에 위치할 경우(평행사변형의 넓이가 0일 경우)
-				-- 구현에 따라 거리가 가까운 점을 먼저 택하는 처리를 적용할 때도 있으나,
-				-- 해당 처리가 없더라도 볼록 다각형의 생성에는 문제될 것이 없으므로 여기에선 생략함
-				return self:ComputeParallellogramArea(base, a, b) < 0
-			end)
-
-			table.insert(nominateds, base)
-			table.insert(nominateds, candidates[1])
-			for i = 2, #candidates do
-				local candidate = candidates[i]
-				while #nominateds > 1 do
-					if self:ComputeParallellogramArea(nominateds[#nominateds - 1], nominateds[#nominateds], candidate) < 0 then
-						break
-					end
-
-					table.remove(nominateds)
-				end
-				table.insert(nominateds, candidate)
-			end
-		end
-
-		for i = 1, #lineHandles do
-			_EffectService:RemoveEffect(
-				lineHandles[i]
-			)
-		end
-		table.clear(lineHandles)
-
-		for i = 1, #nominateds do
-			local startIndex = i
-			local endIndex
-			if i < #nominateds then
-				endIndex = i + 1
-			else
-				endIndex = 1
-			end
-
-			table.insert(
+		if eventKey == KeyboardKey.Mouse0 then
+			draw = draw or self:AddVertex(
+				cursorVertex,
+				currentMap,
+				vertices,
+				vertexHandles,
 				lineHandles,
-				_Debug:DrawLine(
-					currentMap,
-					nominateds[startIndex],
-					nominateds[endIndex],
-					0.025,
-					Color(0, 1, 0),
-					true
-				)
+				vertexSize
 			)
+		end
+
+		if eventKey == KeyboardKey.Mouse1 then
+			draw = draw or self:RemoveVertex(
+				cursorVertex,
+				currentMap,
+				vertices,
+				vertexHandles,
+				lineHandles,
+				vertexSize
+			)
+		end
+
+		if draw then
+			for i = 1, #vertexHandles do
+				_EffectService:RemoveEffect(
+					vertexHandles[i]
+				)
+			end
+			table.clear(vertexHandles)
+
+			for i = 1, #vertices do
+				table.insert(
+					vertexHandles,
+					_Debug:DrawOrientedBox(
+						currentMap,
+						vertices[i],
+						Vector2(vertexSize, vertexSize),
+						0,
+						Color(0, 1, 0),
+						true
+					)
+				)
+			end
+
+			for i = 1, #lineHandles do
+				_EffectService:RemoveEffect(
+					lineHandles[i]
+				)
+			end
+			table.clear(lineHandles)
+
+			local edgeVertices = self:ComputeEdgeVertices(vertices)
+			
+			for i = 1, #edgeVertices do
+				local startIndex = i
+				local endIndex
+				if i < #edgeVertices then
+					endIndex = i + 1
+				else
+					endIndex = 1
+				end
+
+				table.insert(
+					lineHandles,
+					_Debug:DrawLine(
+						currentMap,
+						edgeVertices[startIndex],
+						edgeVertices[endIndex],
+						0.025,
+						Color(0, 1, 0),
+						true
+					)
+				)
+			end
 		end
 	end
 end
