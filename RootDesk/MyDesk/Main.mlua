@@ -80,10 +80,6 @@ script Main extends Component
 			end
 		end
 
-		--for i = 1, #vertices do
-		--	print("vertex[" .. i .. "]: " .. tostring(vertices[i]))
-		--end
-
 		for i = 1, #vertices do
 			local startIndex = i
 			local endIndex
