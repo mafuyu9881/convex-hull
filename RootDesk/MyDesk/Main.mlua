@@ -66,23 +66,30 @@ script Main extends Component
 			
 			local base = vertices[1]
 
-			table.sort(vertices, function(a, b)
+			local candidates = {}
+			for i = 2, #vertices do
+				table.insert(candidates, vertices[i])
+			end
+
+			table.sort(candidates, function(a, b)
 				-- 점이 직선 상에 위치할 경우(평행사변형의 넓이가 0일 경우)
 				-- 구현에 따라 거리가 가까운 점을 먼저 택하는 처리를 적용할 때도 있으나,
 				-- 해당 처리가 없더라도 볼록 다각형의 생성에는 문제될 것이 없으므로 여기에선 생략함
 				return self:ComputeParallellogramArea(base, a, b) < 0
 			end)
 
-			table.insert(nominateds, vertices[1])
-			table.insert(nominateds, vertices[2])
-			for i = 3, #vertices do
-				local candidate = vertices[i]
-				local count = #nominateds
-				if count < 2 or self:ComputeParallellogramArea(nominateds[count - 1], nominateds[count], candidate) < 0 then
-					table.insert(nominateds, candidate)
-				else
+			table.insert(nominateds, base)
+			table.insert(nominateds, candidates[1])
+			for i = 2, #candidates do
+				local candidate = candidates[i]
+				while #nominateds > 1 do
+					if self:ComputeParallellogramArea(nominateds[#nominateds - 1], nominateds[#nominateds], candidate) < 0 then
+						break
+					end
+
 					table.remove(nominateds)
 				end
+				table.insert(nominateds, candidate)
 			end
 		end
 
