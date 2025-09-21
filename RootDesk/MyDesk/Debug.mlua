@@ -13,9 +13,9 @@ script Debug extends Logic
 		return math.deg(self:Vector2ToRad(v))
 	end
 
-	method void DrawLine(Entity currentMap, Vector2 startWorldPosition2D, Vector2 endWorldPosition2D, number thickness, Color color, boolean loop)
+	method integer DrawLine(Entity currentMap, Vector2 startWorldPosition2D, Vector2 endWorldPosition2D, number thickness, Color color, boolean loop)
 		local diff2D = startWorldPosition2D - endWorldPosition2D
-		self:DrawOrientedBox(
+		return self:DrawOrientedBox(
 			currentMap,
 			(startWorldPosition2D + endWorldPosition2D) * 0.5,
 			Vector2(diff2D:Magnitude(), thickness),
@@ -25,8 +25,8 @@ script Debug extends Logic
 		)
 	end
 
-	method void DrawOrientedBox(Entity currentMap, Vector2 worldPosition2D, Vector2 size, number deg, Color color, boolean loop)
-		_EffectService:PlayEffect(
+	method integer DrawOrientedBox(Entity currentMap, Vector2 worldPosition2D, Vector2 size, number deg, Color color, boolean loop)
+		return _EffectService:PlayEffect(
 			"a2cc1cbb89c947c2abdfc62bd80d492b",
 			currentMap,
 			worldPosition2D:ToVector3(),
