@@ -80,6 +80,8 @@ script Main extends Component
 				local vertex = vertices[i]
 				if count < 2 or self:ComputeParallellogramArea(vertices[count - 1], vertices[count], vertex) < 0 then
 					table.insert(nominateds, vertex)
+				else
+					table.remove(nominateds)
 				end
 			end
 		end
