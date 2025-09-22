@@ -38,11 +38,11 @@ script Main extends Component
 	end
 
 	method table ComputeEdgeVertices(table vertices)
-		local nominateds = {}
+		local output = {}
 		if #vertices > 1 then
 			if #vertices < 3 then
-				table.insert(nominateds, vertices[1])
-				table.insert(nominateds, vertices[2])
+				table.insert(output, vertices[1])
+				table.insert(output, vertices[2])
 			else
 				table.sort(vertices, function(a, b)
 					return a.x < b.x
@@ -62,22 +62,22 @@ script Main extends Component
 					return self:ComputeParallellogramArea(base, a, b) < 0
 				end)
 
-				table.insert(nominateds, base)
-				table.insert(nominateds, candidates[1])
+				table.insert(output, base)
+				table.insert(output, candidates[1])
 				for i = 2, #candidates do
 					local candidate = candidates[i]
-					while #nominateds > 1 do
-						if self:ComputeParallellogramArea(nominateds[#nominateds - 1], nominateds[#nominateds], candidate) < 0 then
+					while #output > 1 do
+						if self:ComputeParallellogramArea(output[#output - 1], output[#output], candidate) < 0 then
 							break
 						end
 
-						table.remove(nominateds)
+						table.remove(output)
 					end
-					table.insert(nominateds, candidate)
+					table.insert(output, candidate)
 				end
 			end
 		end
-		return nominateds
+		return output
 	end
 
 	@EventSender("Service", "InputService")
