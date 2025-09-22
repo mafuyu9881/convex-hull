@@ -37,7 +37,7 @@ script Main extends Component
 		return false
 	end
 
-	method table ComputeEdgeVertices(table vertices)
+	method table ComputeGrahamScannedVertices(table vertices)
 		local output = {}
 		if #vertices > 1 then
 			if #vertices < 3 then
@@ -144,7 +144,7 @@ script Main extends Component
 			end
 			table.clear(lineHandles)
 
-			local edgeVertices = self:ComputeEdgeVertices(vertices)
+			local edgeVertices = self:ComputeGrahamScannedVertices(vertices)
 			
 			for i = 1, #edgeVertices do
 				local startIndex = i
